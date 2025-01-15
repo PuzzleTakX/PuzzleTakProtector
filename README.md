@@ -14,7 +14,7 @@ PuzzleTakProtectorLib.checkXposedExistAndDisableIt();
 PuzzleTakProtectorLib.checkIsBeingTracedByC();
 PuzzleTakProtectorLib.checkIsRunningInVirtualApk();
 PuzzleTakProtectorLib.checkIsRunningInEmulator();
-
+```
 ## More Functions
 
 For more functions, please refer to the following classes:
