@@ -48,4 +48,3 @@ No need for additional Proguard rules. The library is compatible with Proguard o
 | Android 13 | Tested      | Various ROMs    |
 | Android 14 | Tested      | Various ROMs    |
 | Android 15 | Tested      | Various ROMs    |
-
