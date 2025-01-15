@@ -1,0 +1,38 @@
+{
+  "buildFiles": [
+    "C:\\Users\\PuzzleTak\\Desktop\\PuzzleTakProtector-master\\library\\CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "E:\\AndroidSDKSuper\\cmake\\3.22.1\\bin\\ninja.exe",
+      "-C",
+      "C:\\Users\\PuzzleTak\\Desktop\\PuzzleTakProtector-master\\library\\.cxx\\RelWithDebInfo\\6q3734j4\\x86",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "E:\\AndroidSDKSuper\\cmake\\3.22.1\\bin\\ninja.exe",
+    "-C",
+    "C:\\Users\\PuzzleTak\\Desktop\\PuzzleTakProtector-master\\library\\.cxx\\RelWithDebInfo\\6q3734j4\\x86",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "antitrace::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "x86",
+      "artifactName": "antitrace",
+      "output": "C:\\Users\\PuzzleTak\\Desktop\\PuzzleTakProtector-master\\library\\build\\intermediates\\cxx\\RelWithDebInfo\\6q3734j4\\obj\\x86\\libantitrace.so",
+      "runtimeFiles": []
+    }
+  },
+  "toolchains": {
+    "toolchain": {
+      "cCompilerExecutable": "E:\\AndroidSDKSuper\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang.exe",
+      "cppCompilerExecutable": "E:\\AndroidSDKSuper\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe"
+    }
+  },
+  "cFileExtensions": [],
+  "cppFileExtensions": [
+    "cpp"
+  ]
+}

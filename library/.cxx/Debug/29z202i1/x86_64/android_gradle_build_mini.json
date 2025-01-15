@@ -1,0 +1,27 @@
+{
+  "buildFiles": [
+    "C:\\Users\\PuzzleTak\\Desktop\\PuzzleTakProtector-master\\library\\CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "E:\\AndroidSDKSuper\\cmake\\3.22.1\\bin\\ninja.exe",
+      "-C",
+      "C:\\Users\\PuzzleTak\\Desktop\\PuzzleTakProtector-master\\library\\.cxx\\Debug\\29z202i1\\x86_64",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "E:\\AndroidSDKSuper\\cmake\\3.22.1\\bin\\ninja.exe",
+    "-C",
+    "C:\\Users\\PuzzleTak\\Desktop\\PuzzleTakProtector-master\\library\\.cxx\\Debug\\29z202i1\\x86_64",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "antitrace::@6890427a1f51a3e7e1df": {
+      "artifactName": "antitrace",
+      "abi": "x86_64",
+      "output": "C:\\Users\\PuzzleTak\\Desktop\\PuzzleTakProtector-master\\library\\build\\intermediates\\cxx\\Debug\\29z202i1\\obj\\x86_64\\libantitrace.so",
+      "runtimeFiles": []
+    }
+  }
+}

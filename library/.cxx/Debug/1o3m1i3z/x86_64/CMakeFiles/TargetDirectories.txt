@@ -1,0 +1,3 @@
+C:/Users/PuzzleTak/Desktop/PuzzleTakProtector-master/library/.cxx/Debug/1o3m1i3z/x86_64/CMakeFiles/antitrace.dir
+C:/Users/PuzzleTak/Desktop/PuzzleTakProtector-master/library/.cxx/Debug/1o3m1i3z/x86_64/CMakeFiles/edit_cache.dir
+C:/Users/PuzzleTak/Desktop/PuzzleTakProtector-master/library/.cxx/Debug/1o3m1i3z/x86_64/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,7 @@
+[
+{
+  "directory": "C:/Users/PuzzleTak/Desktop/PuzzleTakProtector-master/library/.cxx/Debug/1o3m1i3z/x86_64",
+  "command": "E:\\AndroidSDKSuper\\ndk\\25.1.8937393\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=x86_64-none-linux-android21 --sysroot=E:/AndroidSDKSuper/ndk/25.1.8937393/toolchains/llvm/prebuilt/windows-x86_64/sysroot -Dantitrace_EXPORTS -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security   -fno-limit-debug-info  -fPIC -o CMakeFiles\\antitrace.dir\\src\\main\\jni\\antitrace.cpp.o -c C:\\Users\\PuzzleTak\\Desktop\\PuzzleTakProtector-master\\library\\src\\main\\jni\\antitrace.cpp",
+  "file": "C:\\Users\\PuzzleTak\\Desktop\\PuzzleTakProtector-master\\library\\src\\main\\jni\\antitrace.cpp"
+}
+]

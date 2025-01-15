@@ -1,0 +1,43 @@
+apply plugin: 'com.android.library'
+//apply plugin: 'com.novoda.bintray-release'
+
+android {
+    namespace 'com.puzzletak.library' // Add or modify this line
+    compileSdk 34
+    defaultConfig {
+        minSdkVersion 24
+        targetSdk 34
+        versionCode 1
+        versionName "1.2.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+
+    externalNativeBuild {
+        cmake {
+            path 'CMakeLists.txt'
+        }
+    }
+}
+
+dependencies {
+    dependencies {
+        implementation files('libs/bintray-release-0.9.2.jar')
+    }
+
+}
+
+//publish {
+//    userOrg = 'lamster2018' //bintray注册的用户名（不是邮箱）
+//    groupId = 'com.puzzletak.library'
+//    artifactId = 'easy-protector-release' //项目名称
+//    publishVersion = gitVersionName() //版本号
+//    desc = 'protect your android app' //项目描述。可空。
+//    website = 'https://github.com/lamster2025/PuzzleTakProtector' //项目地址，一般填github地址。可空。
+//}
+
+

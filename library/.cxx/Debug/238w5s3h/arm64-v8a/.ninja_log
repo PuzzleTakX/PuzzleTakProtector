@@ -1,0 +1,4 @@
+# ninja log v5
+1	936	7586358597606873	CMakeFiles/antitrace.dir/src/main/jni/antitrace.cpp.o	f59b01bf40ae8bad
+939	1033	7586358598592158	../../../../build/intermediates/cxx/Debug/238w5s3h/obj/arm64-v8a/libantitrace.so	7a75a3904580b30f
+2	97	7586369500298105	../../../../build/intermediates/cxx/Debug/238w5s3h/obj/arm64-v8a/libantitrace.so	7a75a3904580b30f
