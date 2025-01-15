@@ -30,7 +30,7 @@ No need for additional Proguard rules. The library is compatible with Proguard o
 
 ## Compatibility
 
-- **Minimum Android SDK**: Requires a minimum API level of 16.
+- **Minimum Android SDK**: Requires a minimum API level of 24.
 - **CPU Architecture**: Supports both x86 & ARM architectures.
 
 
