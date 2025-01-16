@@ -1,0 +1,25 @@
+publishing {
+    publications {
+        release(MavenPublication) {
+            // Use the correct component for an Android library
+            from components.release // This should be components.release for a standard release build
+
+            groupId = 'com.puzzletak'  // Define your group ID (organization or package name)
+            artifactId = 'protector'   // Define your library name
+            version = '1.0.0'          // Define your library version
+        }
+    }
+
+    repositories {
+        maven {
+            name = "MavenCentral"
+            url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")  // Sonatype's Maven Central URL
+
+            credentials {
+                username = project.findProperty("ossrhUsername") ?: System.getenv("OSSRH_USERNAME")
+                password = project.findProperty("ossrhPassword") ?: System.getenv("OSSRH_PASSWORD")
+            }
+
+        }
+    }
+}

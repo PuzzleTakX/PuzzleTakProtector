@@ -1,35 +1,43 @@
+// Apply the necessary plugin for the library module
 apply plugin: 'com.android.library'
+apply plugin: 'maven-publish'  // Add this plugin if you want to publish to Maven repositories
 
+// Set up buildscript to define repositories and dependencies
 buildscript {
     repositories {
-        google()
-        mavenCentral()
+        google()        // Use Google's Maven repository
+        mavenCentral()  // Use Maven Central repository
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.1.4'
+        classpath 'com.android.tools.build:gradle:8.1.4'  // Use the required Android Gradle plugin version
     }
 }
 
+// Configure the Android build settings
 android {
-    namespace 'com.puzzletak.protector'
-    compileSdk 34
+    namespace 'com.puzzletak.protector'  // Set the namespace for your library
+    compileSdk 34                         // Define the compile SDK version
 
     defaultConfig {
-        minSdkVersion 24
-        targetSdk 34
+        minSdkVersion 24                  // Minimum supported SDK version
+        targetSdk 34                      // Target SDK version
     }
 }
 
+// Define repositories for all projects, including subprojects
 allprojects {
     repositories {
-        google()
-        mavenCentral()
-        maven { url "https://jitpack.io" }
+        google()         // Use Google's Maven repository
+        mavenCentral()   // Use Maven Central repository
+        maven { url "https://jitpack.io" }  // Add JitPack repository for certain dependencies
     }
+
     subprojects {
+        // Configure subprojects if necessary
         afterEvaluate { project ->
             if (project.hasProperty('android')) {
                 project.android {
+                    // If the subproject doesn't have a namespace, set it from the group property
                     if (namespace == null) {
                         namespace project.group
                     }
@@ -39,4 +47,29 @@ allprojects {
     }
 }
 
+// Add Maven publishing configuration if you want to publish to Maven Central or other repositories
+publishing {
+    publications {
+        release(MavenPublication) {
+            // Use the correct component for an Android library
+            from components.findByName("release") // This should reference the release variant
+
+            groupId = 'com.puzzletak'  // Define your group ID (organization or package name)
+            artifactId = 'protector'   // Define your library name
+            version = '1.0.0'          // Define your library version
+        }
+    }
+
+
+    repositories {
+        maven {
+            name = "MavenCentral"
+            url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/") // URL صحیح
+            credentials {
+                username = 'Kn6FKw9w'
+                password = 'es7fvHDRZR2AVmOhZYfFZ0Rv93NFxFr9Q/ElAEs7cuAD'
+            }
+        }
+    }
+}
 
