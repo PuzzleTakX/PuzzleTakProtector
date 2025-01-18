@@ -63,7 +63,7 @@ public class EmulatorSuperCheckUtil {
                 ++suspectCount;
                 break;
             case RESULT_EMULATOR:
-                if (callback != null) callback.findEmulator("host -= " + hostResult.value);
+                if (callback != null) callback.findEmulator("host = " + hostResult.value);
                 return true;
         }
 
@@ -74,7 +74,7 @@ public class EmulatorSuperCheckUtil {
                 ++suspectCount;
                 break;
             case RESULT_EMULATOR:
-                if (callback != null) callback.findEmulator("flavor -= " + flavorResult.value);
+                if (callback != null) callback.findEmulator("flavor = " + flavorResult.value);
                 return true;
         }
 
@@ -183,6 +183,205 @@ public class EmulatorSuperCheckUtil {
                     .append("\r\n").append("suspectCount = ").append(suspectCount);
             callback.findEmulator(stringBuffer.toString());
             callback.checkEmulator(suspectCount);
+        }
+
+        // If suspicion count is greater than 3, consider it an emulator
+        return suspectCount > 3;
+    }
+
+
+    public boolean readSysPropertyPT(Context context, EmulatorSuperCheckCallback callback) {
+        if (context == null)
+            throw new IllegalArgumentException("context must not be null");
+
+        int suspectCount = 0;
+
+        // Check hardware name
+        CheckResult hardwareResult = checkFeaturesByHardware();
+        if (hardwareResult.result == RESULT_MAYBE_EMULATOR) {
+            ++suspectCount;
+        }
+
+        // Check host name
+        CheckResult hostResult = checkFeaturesByHost();
+        if (hostResult.result == RESULT_MAYBE_EMULATOR) {
+            ++suspectCount;
+        }
+
+        // Check build flavor
+        CheckResult flavorResult = checkFeaturesByFlavor();
+        if (flavorResult.result == RESULT_MAYBE_EMULATOR) {
+            ++suspectCount;
+        }
+
+        // Check device model
+        CheckResult modelResult = checkFeaturesByModel();
+        if (modelResult.result == RESULT_MAYBE_EMULATOR) {
+            ++suspectCount;
+        }
+
+        // Check manufacturer
+        CheckResult manufacturerResult = checkFeaturesByManufacturer();
+        if (manufacturerResult.result == RESULT_MAYBE_EMULATOR) {
+            ++suspectCount;
+        }
+
+        // Check board name
+        CheckResult boardResult = checkFeaturesByBoard();
+        if (boardResult.result == RESULT_MAYBE_EMULATOR) {
+            ++suspectCount;
+        }
+
+        // Check platform name
+        CheckResult platformResult = checkFeaturesByPlatform();
+        if (platformResult.result == RESULT_MAYBE_EMULATOR) {
+            ++suspectCount;
+        }
+
+        // Check baseband information
+        CheckResult baseBandResult = checkFeaturesByBaseBand();
+        if (baseBandResult.result == RESULT_MAYBE_EMULATOR) {
+            suspectCount += 2; // Baseband info being null strongly indicates an emulator.
+        }
+
+        // Check sensor count
+        int sensorNumber = getSensorNumber(context);
+        if (sensorNumber <= 7) ++suspectCount;
+
+        // Check number of installed third-party apps
+        int userAppNumber = getUserAppNumber();
+        if (userAppNumber <= 5) ++suspectCount;
+
+        // Check if camera flash is supported
+        boolean supportCameraFlash = supportCameraFlash(context);
+        if (!supportCameraFlash) ++suspectCount;
+
+        // Check if camera is supported
+        boolean supportCamera = supportCamera(context);
+        if (!supportCamera) ++suspectCount;
+
+        // Check if Bluetooth is supported
+        boolean supportBluetooth = supportBluetooth(context);
+        if (!supportBluetooth) ++suspectCount;
+
+        // Check light sensor presence
+        boolean hasLightSensor = hasLightSensor(context);
+        if (!hasLightSensor) ++suspectCount;
+
+        // Check cgroup information
+        CheckResult cgroupResult = checkFeaturesByCgroup();
+        if (cgroupResult.result == RESULT_MAYBE_EMULATOR) ++suspectCount;
+
+        // Provide callback with detailed results
+        if (callback != null) {
+            callback.checkEmulator(suspectCount);
+        }
+
+        // If suspicion count is greater than 3, consider it an emulator
+        return suspectCount > 3;
+    }
+    public boolean readSysPropertyPTResult(Context context, EmulatorSuperCheckCallback callback) {
+        if (context == null)
+            throw new IllegalArgumentException("context must not be null");
+
+        int suspectCount = 0;
+
+        // Check hardware name
+        CheckResult hardwareResult = checkFeaturesByHardware();
+        if (hardwareResult.result == RESULT_MAYBE_EMULATOR) {
+            ++suspectCount;
+        }
+
+        // Check host name
+        CheckResult hostResult = checkFeaturesByHost();
+        if (hostResult.result == RESULT_MAYBE_EMULATOR) {
+            ++suspectCount;
+        }
+
+        // Check build flavor
+        CheckResult flavorResult = checkFeaturesByFlavor();
+        if (flavorResult.result == RESULT_MAYBE_EMULATOR) {
+            ++suspectCount;
+        }
+
+        // Check device model
+        CheckResult modelResult = checkFeaturesByModel();
+        if (modelResult.result == RESULT_MAYBE_EMULATOR) {
+            ++suspectCount;
+        }
+
+        // Check manufacturer
+        CheckResult manufacturerResult = checkFeaturesByManufacturer();
+        if (manufacturerResult.result == RESULT_MAYBE_EMULATOR) {
+            ++suspectCount;
+        }
+
+        // Check board name
+        CheckResult boardResult = checkFeaturesByBoard();
+        if (boardResult.result == RESULT_MAYBE_EMULATOR) {
+            ++suspectCount;
+        }
+
+        // Check platform name
+        CheckResult platformResult = checkFeaturesByPlatform();
+        if (platformResult.result == RESULT_MAYBE_EMULATOR) {
+            ++suspectCount;
+        }
+
+        // Check baseband information
+        CheckResult baseBandResult = checkFeaturesByBaseBand();
+        if (baseBandResult.result == RESULT_MAYBE_EMULATOR) {
+            suspectCount += 2; // Baseband info being null strongly indicates an emulator.
+        }
+
+        // Check sensor count
+        int sensorNumber = getSensorNumber(context);
+        if (sensorNumber <= 7) ++suspectCount;
+
+        // Check number of installed third-party apps
+        int userAppNumber = getUserAppNumber();
+        if (userAppNumber <= 5) ++suspectCount;
+
+        // Check if camera flash is supported
+        boolean supportCameraFlash = supportCameraFlash(context);
+        if (!supportCameraFlash) ++suspectCount;
+
+        // Check if camera is supported
+        boolean supportCamera = supportCamera(context);
+        if (!supportCamera) ++suspectCount;
+
+        // Check if Bluetooth is supported
+        boolean supportBluetooth = supportBluetooth(context);
+        if (!supportBluetooth) ++suspectCount;
+
+        // Check light sensor presence
+        boolean hasLightSensor = hasLightSensor(context);
+        if (!hasLightSensor) ++suspectCount;
+
+        // Check cgroup information
+        CheckResult cgroupResult = checkFeaturesByCgroup();
+        if (cgroupResult.result == RESULT_MAYBE_EMULATOR) ++suspectCount;
+
+        // Provide callback with detailed results
+        if (callback != null) {
+            String stringBuffer = "Test start" +
+                    "\r\n" + "hardware = " + hardwareResult.value +
+                    "\r\n" + "host = " + hostResult.value +
+                    "\r\n" + "flavor = " + flavorResult.value +
+                    "\r\n" + "model = " + modelResult.value +
+                    "\r\n" + "manufacturer = " + manufacturerResult.value +
+                    "\r\n" + "board = " + boardResult.value +
+                    "\r\n" + "platform = " + platformResult.value +
+                    "\r\n" + "baseBand = " + baseBandResult.value +
+                    "\r\n" + "sensorNumber = " + sensorNumber +
+                    "\r\n" + "userAppNumber = " + userAppNumber +
+                    "\r\n" + "supportCamera = " + supportCamera +
+                    "\r\n" + "supportCameraFlash = " + supportCameraFlash +
+                    "\r\n" + "supportBluetooth = " + supportBluetooth +
+                    "\r\n" + "hasLightSensor = " + hasLightSensor +
+                    "\r\n" + "cgroupResult = " + cgroupResult.value +
+                    "\r\n" + "suspectCount = " + suspectCount;
+            callback.findEmulator(stringBuffer);
         }
 
         // If suspicion count is greater than 3, consider it an emulator
