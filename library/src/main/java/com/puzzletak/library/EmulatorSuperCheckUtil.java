@@ -12,6 +12,9 @@ import static com.puzzletak.library.CheckResult.RESULT_EMULATOR;
 import static com.puzzletak.library.CheckResult.RESULT_MAYBE_EMULATOR;
 import static com.puzzletak.library.CheckResult.RESULT_UNKNOWN;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Utility class for detecting if the app is running on an emulator.
  * Made with ❤ by puzzletak
@@ -190,7 +193,7 @@ public class EmulatorSuperCheckUtil {
     }
 
 
-    public boolean readSysPropertyPT(Context context, EmulatorSuperCheckCallback callback) {
+    public int readSysPropertyPT(Context context, EmulatorSuperCheckCallback callback) {
         if (context == null)
             throw new IllegalArgumentException("context must not be null");
 
@@ -278,7 +281,7 @@ public class EmulatorSuperCheckUtil {
         }
 
         // If suspicion count is greater than 3, consider it an emulator
-        return suspectCount > 3;
+        return suspectCount;
     }
     public boolean readSysPropertyPTResult(Context context, EmulatorSuperCheckCallback callback) {
         if (context == null)
@@ -364,24 +367,27 @@ public class EmulatorSuperCheckUtil {
 
         // Provide callback with detailed results
         if (callback != null) {
-            String stringBuffer = "Test start" +
-                    "\r\n" + "hardware = " + hardwareResult.value +
-                    "\r\n" + "host = " + hostResult.value +
-                    "\r\n" + "flavor = " + flavorResult.value +
-                    "\r\n" + "model = " + modelResult.value +
-                    "\r\n" + "manufacturer = " + manufacturerResult.value +
-                    "\r\n" + "board = " + boardResult.value +
-                    "\r\n" + "platform = " + platformResult.value +
-                    "\r\n" + "baseBand = " + baseBandResult.value +
-                    "\r\n" + "sensorNumber = " + sensorNumber +
-                    "\r\n" + "userAppNumber = " + userAppNumber +
-                    "\r\n" + "supportCamera = " + supportCamera +
-                    "\r\n" + "supportCameraFlash = " + supportCameraFlash +
-                    "\r\n" + "supportBluetooth = " + supportBluetooth +
-                    "\r\n" + "hasLightSensor = " + hasLightSensor +
-                    "\r\n" + "cgroupResult = " + cgroupResult.value +
-                    "\r\n" + "suspectCount = " + suspectCount;
-            callback.findEmulator(stringBuffer);
+            Map<String, Object> emulatorInfo = new HashMap<>();
+            emulatorInfo.put("hardware", hardwareResult.value);
+            emulatorInfo.put("host", hostResult.value);
+            emulatorInfo.put("flavor", flavorResult.value);
+            emulatorInfo.put("model", modelResult.value);
+            emulatorInfo.put("manufacturer", manufacturerResult.value);
+            emulatorInfo.put("board", boardResult.value);
+            emulatorInfo.put("platform", platformResult.value);
+            emulatorInfo.put("baseBand", baseBandResult.value);
+            emulatorInfo.put("sensorNumber", sensorNumber);
+            emulatorInfo.put("userAppNumber", userAppNumber);
+            emulatorInfo.put("supportCamera", supportCamera);
+            emulatorInfo.put("supportCameraFlash", supportCameraFlash);
+            emulatorInfo.put("supportBluetooth", supportBluetooth);
+            emulatorInfo.put("hasLightSensor", hasLightSensor);
+            emulatorInfo.put("cgroupResult", cgroupResult.value);
+            emulatorInfo.put("suspectCount", suspectCount);
+
+// Call the callback with the map
+            callback.detailsEmulator(emulatorInfo);
+
         }
 
         // If suspicion count is greater than 3, consider it an emulator

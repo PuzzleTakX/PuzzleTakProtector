@@ -29,7 +29,6 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.ThreadPoolExecutor;
 
-
 public class SecurityCheckUtil {
 
     private static class SingletonHolder {
@@ -43,21 +42,20 @@ public class SecurityCheckUtil {
         return SingletonHolder.singleInstance;
     }
 
-
     public String getSignature(Context context) {
         try {
             PackageInfo packageInfo = context.
                     getPackageManager()
                     .getPackageInfo(context.getPackageName(),
                             PackageManager.GET_SIGNATURES);
-            // 通过返回的包信息获得签名数组
+            // Obtain the signature array from the returned package info.
             Signature[] signatures = packageInfo.signatures;
-            // 循环遍历签名数组拼接应用签名
+            // Iterate through the signature array and concatenate the signatures.
             StringBuilder builder = new StringBuilder();
             for (Signature signature : signatures) {
                 builder.append(signature.toCharsString());
             }
-            // 得到应用签名
+            // Return the application signature.
             return builder.toString();
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
@@ -65,17 +63,14 @@ public class SecurityCheckUtil {
         return "";
     }
 
-
     public boolean checkIsDebugVersion(Context context) {
         return (context.getApplicationInfo().flags
                 & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
     }
 
-
     public boolean checkIsDebuggerConnected() {
         return android.os.Debug.isDebuggerConnected();
     }
-
 
     public boolean checkIsUsbCharging(Context context) {
         IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
@@ -85,12 +80,10 @@ public class SecurityCheckUtil {
         return chargePlug == BatteryManager.BATTERY_PLUGGED_USB;
     }
 
-
     public String getApplicationMetaValue(Context context, String name) {
         ApplicationInfo appInfo = context.getApplicationInfo();
         return appInfo.metaData.getString(name);
     }
-
 
     public boolean isLocalPortUsing(int port) {
         boolean flag = true;
@@ -102,7 +95,7 @@ public class SecurityCheckUtil {
     }
 
     /**
-     * 检测任一端口是否被占用
+     * Check if any port is in use.
      *
      * @param host
      * @param port
@@ -121,15 +114,15 @@ public class SecurityCheckUtil {
     }
 
     /**
-     * 检查root权限
+     * Check root permissions.
      *
-     * @return
+     * @return true if the device is rooted.
      */
     public boolean isRoot() {
         int secureProp = getroSecureProp();
-        if (secureProp == 0)//eng/userdebug版本，自带root权限
+        if (secureProp == 0) // eng/userdebug version with root permissions
             return true;
-        else return isSUExist();//user版本，继续查su文件
+        else return isSUExist(); // user version, check for SU file
     }
 
     private int getroSecureProp() {
@@ -141,17 +134,6 @@ public class SecurityCheckUtil {
             else secureProp = 1;
         }
         return secureProp;
-    }
-
-    private int getroDebugProp() {
-        int debugProp;
-        String roDebugObj = CommandUtil.getSingleInstance().getProperty("ro.debuggable");
-        if (roDebugObj == null) debugProp = 1;
-        else {
-            if ("0".equals(roDebugObj)) debugProp = 0;
-            else debugProp = 1;
-        }
-        return debugProp;
     }
 
     private boolean isSUExist() {
@@ -175,9 +157,9 @@ public class SecurityCheckUtil {
     private static final String XPOSED_BRIDGE = "de.robv.android.xposed.XposedBridge";
 
     /**
-     * 通过检查是否已经加载了XP类来检测
+     * Check if the Xposed framework is loaded by verifying if its classes are loaded.
      *
-     * @return
+     * @return true if Xposed is detected.
      */
     @Deprecated
     public boolean isXposedExists() {
@@ -186,39 +168,24 @@ public class SecurityCheckUtil {
                     .getSystemClassLoader()
                     .loadClass(XPOSED_HELPERS)
                     .newInstance();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
             return true;
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-            return true;
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            return false;
         }
-
         try {
             Object xpBridgeObj = ClassLoader
                     .getSystemClassLoader()
                     .loadClass(XPOSED_BRIDGE)
                     .newInstance();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
             return true;
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-            return true;
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            return false;
         }
         return true;
     }
 
     /**
-     * 通过主动抛出异常，检查堆栈信息来判断是否存在XP框架
+     * Detect the Xposed framework by throwing an exception and checking the stack trace.
      *
-     * @return
+     * @return true if Xposed is detected.
      */
     public boolean isXposedExistByThrow() {
         try {
@@ -232,14 +199,11 @@ public class SecurityCheckUtil {
     }
 
     /**
-     * 尝试关闭XP框架
-     * 先通过isXposedExistByThrow判断有没有XP框架
-     * 有的话先hookXP框架的全局变量disableHooks
-     * <p>
-     * 漏洞在，如果XP框架先hook了isXposedExistByThrow的返回值，那么后续就没法走了
-     * 现在直接先hookXP框架的全局变量disableHooks
+     * Attempt to disable the Xposed framework.
+     * First, check if Xposed exists using isXposedExistByThrow.
+     * If present, hook the global variable disableHooks in the Xposed framework.
      *
-     * @return 是否关闭成功的结果
+     * @return true if successfully disabled.
      */
     public boolean tryShutdownXposed() {
         Field xpdisabledHooks = null;
@@ -250,105 +214,85 @@ public class SecurityCheckUtil {
             xpdisabledHooks.setAccessible(true);
             xpdisabledHooks.set(null, Boolean.TRUE);
             return true;
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-            return false;
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            return false;
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
             return false;
         }
     }
 
     /**
-     * 检测有么有加载so库
+     * Detect if any shared library (.so) is loaded by reading the /proc/<pid>/maps file.
      *
-     * @param paramString
-     * @return
+     * @param paramString the library name to check.
+     * @return true if the library is found.
      */
     public boolean hasReadProcMaps(String paramString) {
         try {
-            Object localObject = new HashSet();
-            BufferedReader localBufferedReader =
+            Set<String> libraries = new HashSet<>();
+            BufferedReader reader =
                     new BufferedReader(new FileReader("/proc/" + Process.myPid() + "/maps"));
-            for (; ; ) {
-                String str = localBufferedReader.readLine();
-                if (str == null) {
-                    break;
-                }
-                if ((str.endsWith(".so")) || (str.endsWith(".jar"))) {
-                    ((Set) localObject).add(str.substring(str.lastIndexOf(" ") + 1));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (line.endsWith(".so") || line.endsWith(".jar")) {
+                    libraries.add(line.substring(line.lastIndexOf(" ") + 1));
                 }
             }
-            localBufferedReader.close();
-            localObject = ((Set) localObject).iterator();
-            while (((Iterator) localObject).hasNext()) {
-                boolean bool = ((String) ((Iterator) localObject).next()).contains(paramString);
-                if (bool) {
-                    return true;
-                }
+            reader.close();
+            for (String lib : libraries) {
+                if (lib.contains(paramString)) return true;
             }
-        } catch (Exception fuck) {
+        } catch (Exception e) {
         }
         return false;
     }
 
     /**
-     * java读取/proc/uid/status文件里TracerPid的方式来检测是否被调试
+     * Detect debugging by checking the TracerPid value in the /proc/<pid>/status file.
      *
-     * @return
+     * @return true if being debugged.
      */
     public boolean readProcStatus() {
         try {
-            BufferedReader localBufferedReader =
+            BufferedReader reader =
                     new BufferedReader(new FileReader("/proc/" + Process.myPid() + "/status"));
             String tracerPid = "";
-            for (; ; ) {
-                String str = localBufferedReader.readLine();
-                if (str.contains("TracerPid")) {
-                    tracerPid = str.substring(str.indexOf(":") + 1, str.length()).trim();
-                    break;
-                }
-                if (str == null) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (line.contains("TracerPid")) {
+                    tracerPid = line.substring(line.indexOf(":") + 1).trim();
                     break;
                 }
             }
-            localBufferedReader.close();
-            if ("0".equals(tracerPid)) return false;
-            else return true;
-        } catch (Exception fuck) {
+            reader.close();
+            return !"0".equals(tracerPid);
+        } catch (Exception e) {
             return false;
         }
     }
 
     /**
-     * 获取当前进程名
-     * @return
+     * Get the current process name.
+     *
+     * @return the name of the current process.
      */
     public String getCurrentProcessName() {
         FileInputStream fis = null;
         try {
             fis = new FileInputStream("/proc/self/cmdline");
-            byte[] buffer = new byte[256];// 修改长度为256，在做中大精简版时发现包名长度大于32读取到的包名会少字符，导致常驻进程下的初始化操作有问题
+            byte[] buffer = new byte[256];
             int len = 0;
             int b;
             while ((b = fis.read()) > 0 && len < buffer.length) {
                 buffer[len++] = (byte) b;
             }
             if (len > 0) {
-                String s = new String(buffer, 0, len, "UTF-8");
-                return s;
+                return new String(buffer, 0, len, "UTF-8");
             }
         } catch (Exception e) {
-
         } finally {
             if (fis != null) {
                 try {
                     fis.close();
                 } catch (Exception e) {
-
                 }
             }
         }

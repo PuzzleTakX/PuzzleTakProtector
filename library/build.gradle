@@ -37,7 +37,7 @@ dependencies {
 //    artifactId = 'easy-protector-release' //项目名称
 //    publishVersion = gitVersionName() //版本号
 //    desc = 'protect your android app' //项目描述。可空。
-//    website = 'https://github.com/lamster2025/PuzzleTakProtector' //项目地址，一般填github地址。可空。
+//    website = 'https://github.com/PuzzleTakX/PuzzleTakProtector' //项目地址，一般填github地址。可空。
 //}
 
 

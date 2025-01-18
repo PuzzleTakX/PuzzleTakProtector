@@ -57,11 +57,11 @@ public class PuzzleTakProtectorLib {
     public static boolean checkIsRunningInEmulator(Context context, EmulatorSuperCheckCallback callback) {
         return EmulatorSuperCheckUtil.getSingleInstance().readSysProperty(context, callback);
     }
-    public static boolean checkIsRunningInEmulatorPT(Context context, EmulatorSuperCheckCallback callback) {
-        return EmulatorSuperCheckUtil.getSingleInstance().readSysProperty(context, callback);
+    public static int checkIsRunningInEmulatorPT(Context context, EmulatorSuperCheckCallback callback) {
+        return EmulatorSuperCheckUtil.getSingleInstance().readSysPropertyPT(context, callback);
     }
     public static boolean checkIsRunningInEmulatorPTResult(Context context, EmulatorSuperCheckCallback callback) {
-        return EmulatorSuperCheckUtil.getSingleInstance().readSysProperty(context, callback);
+        return EmulatorSuperCheckUtil.getSingleInstance().readSysPropertyPTResult(context, callback);
     }
 
     public static boolean checkIsRunningInVirtualApk(String uniqueMsg, VirtualCheckCallback callback) {
