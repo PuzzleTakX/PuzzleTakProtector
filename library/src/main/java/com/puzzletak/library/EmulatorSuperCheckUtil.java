@@ -424,6 +424,7 @@ public class EmulatorSuperCheckUtil {
 
         switch (tempValue) {
             case "dev":
+            case "Build2":
             case "buildbot":
             case "google_sdk":
             case "android-build":

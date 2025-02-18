@@ -2,6 +2,7 @@ package com.puzzletak.library;
 
 import android.content.Context;
 
+import java.io.File;
 import java.net.UnknownHostException;
 
 /**
@@ -52,6 +53,23 @@ public class PuzzleTakProtectorLib {
     public static void checkIsBeingTracedByC() {
         NDKUtil.loadLibrariesOnce(null);
 //        NDKUtil.loadLibraryByName("antitrace");
+    }
+
+    public static boolean checkFilesExist(String[] files) {
+        for (String filePath : files) {
+            File file = new File(filePath);
+            if (file.exists()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean isBlueStacks() {
+        String[] BLUE_STACKS_FILES = {
+                "/mnt/windows/BstSharedFolder"
+        };
+        return checkFilesExist(BLUE_STACKS_FILES);
     }
 
     public static boolean checkIsRunningInEmulator(Context context, EmulatorSuperCheckCallback callback) {
