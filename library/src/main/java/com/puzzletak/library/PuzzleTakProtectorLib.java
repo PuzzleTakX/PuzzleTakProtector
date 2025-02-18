@@ -1,6 +1,7 @@
 package com.puzzletak.library;
 
 import android.content.Context;
+import android.telephony.TelephonyManager;
 
 import java.io.File;
 import java.net.UnknownHostException;
@@ -70,6 +71,16 @@ public class PuzzleTakProtectorLib {
                 "/mnt/windows/BstSharedFolder"
         };
         return checkFilesExist(BLUE_STACKS_FILES);
+    }
+
+    public boolean checkABoolean(Context context){
+        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        String networkOperator = tm.getNetworkOperatorName();
+        if ("Android".equals(networkOperator)) {
+          return true;
+        } else {
+            return  false;
+        }
     }
 
     public static boolean checkIsRunningInEmulator(Context context, EmulatorSuperCheckCallback callback) {
