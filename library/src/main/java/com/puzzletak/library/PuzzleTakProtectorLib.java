@@ -73,7 +73,7 @@ public class PuzzleTakProtectorLib {
         return checkFilesExist(BLUE_STACKS_FILES);
     }
 
-    public boolean checkABoolean(Context context){
+    public static boolean checkTelephonyManager(Context context){
         TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         String networkOperator = tm.getNetworkOperatorName();
         if ("Android".equals(networkOperator)) {
