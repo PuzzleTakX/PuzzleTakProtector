@@ -1,256 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:spacing="8dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="VirtualApp" />
+            android:text="VirtualApp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:paddingBottom="16dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingVertical="8dp">
 
             <Button
                 android:id="@+id/checkByPrivateFilePath"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="checkByPrivateFilePath" />
+                android:layout_height="wrap_content"
+                android:text="Analyze Private FilePath" />
 
             <TextView
                 android:id="@+id/v1"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical" />
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingStart="16dp" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/checkByOriginApkPackageName"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="checkByOriginApkPackageName" />
-
-            <TextView
-                android:id="@+id/v2"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/checkByMultiApkPackageName"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="checkByMultiApkPackageName" />
-
-            <TextView
-                android:id="@+id/v3"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/checkByHasSameUid"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="checkByHasSameUid" />
-
-            <TextView
-                android:id="@+id/v4"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/checkByPortListening"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="checkByPortListening" />
-
-            <TextView
-                android:id="@+id/v5"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/checkByCreateLocalServerSocket"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="checkByCreateLocalServerSocket" />
-
-            <TextView
-                android:id="@+id/v6"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical" />
-        </LinearLayout>
-
+        <!-- Section: Private File Paths -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="root" />
+            android:text="Private File Paths"
+            android:textStyle="bold"
+            android:paddingTop="12dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <Button
-                android:id="@+id/checkRoot"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="checkRoot" />
-
-            <TextView
-                android:id="@+id/r1"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical" />
+            <TextView android:id="@+id/v2" style="@style/ItemStyle"/>
+            <TextView android:id="@+id/v3" style="@style/ItemStyle"/>
+            <TextView android:id="@+id/v4" style="@style/ItemStyle"/>
+            <TextView android:id="@+id/v5" style="@style/ItemStyle"/>
+            <TextView android:id="@+id/v6" style="@style/ItemStyle"/>
         </LinearLayout>
 
+        <!-- Section: Root -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="debug" />
+            android:text="Root"
+            android:textStyle="bold"
+            android:paddingTop="12dp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal">
+        <TextView android:id="@+id/r1" style="@style/ItemStyle"/>
 
-            <Button
-                android:id="@+id/checkDebuggable"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="checkDebuggable" />
-
-            <TextView
-                android:id="@+id/d1"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/checkDebuggerAttach"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="checkDebuggerAttach" />
-
-            <TextView
-                android:id="@+id/d2"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/checkTracer"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="checkTracer" />
-
-            <TextView
-                android:id="@+id/d3"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical" />
-        </LinearLayout>
-
+        <!-- Section: Debug -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="XPosed Framework" />
+            android:text="Debug"
+            android:textStyle="bold"
+            android:paddingTop="12dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <Button
-                android:id="@+id/checkXP"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="checkXP" />
-
-            <TextView
-                android:id="@+id/x1"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical" />
+            <TextView android:id="@+id/d1" style="@style/ItemStyle"/>
+            <TextView android:id="@+id/d2" style="@style/ItemStyle"/>
+            <TextView android:id="@+id/d3" style="@style/ItemStyle"/>
         </LinearLayout>
 
+        <!-- Section: XPosed -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="Emulator info" />
+            android:text="XPosed Framework"
+            android:textStyle="bold"
+            android:paddingTop="12dp" />
 
-        <Button
-            android:id="@+id/readSysProperty"
+        <TextView android:id="@+id/x1" style="@style/ItemStyle"/>
+
+        <!-- Section: Emulator -->
+        <TextView 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="click me emulator info" />
+            android:text="Emulator Info"
+            android:textStyle="bold"
+            android:paddingTop="12dp" />
 
         <TextView
             android:id="@+id/e1"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:minHeight="20dp"
             android:minWidth="100dp"
-            android:minHeight="20dp" />
+            android:paddingVertical="8dp" />
 
         <Button
             android:id="@+id/test"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:text="for test" />
+            android:layout_height="wrap_content"
+            android:text="For Test"
+            android:layout_marginTop="16dp" />
     </LinearLayout>
 </ScrollView>

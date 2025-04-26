@@ -158,8 +158,8 @@ public class EmulatorSuperCheckUtil {
         if (!supportBluetooth) ++suspectCount;
 
         // Check light sensor presence
-        boolean hasLightSensor = hasLightSensor(context);
-        if (!hasLightSensor) ++suspectCount;
+//        boolean hasLightSensor = hasLightSensor(context);
+//        if (!hasLightSensor) ++suspectCount;
 
         // Check cgroup information
         CheckResult cgroupResult = checkFeaturesByCgroup();
@@ -181,7 +181,7 @@ public class EmulatorSuperCheckUtil {
                     .append("\r\n").append("supportCamera = ").append(supportCamera)
                     .append("\r\n").append("supportCameraFlash = ").append(supportCameraFlash)
                     .append("\r\n").append("supportBluetooth = ").append(supportBluetooth)
-                    .append("\r\n").append("hasLightSensor = ").append(hasLightSensor)
+//                    .append("\r\n").append("hasLightSensor = ").append(hasLightSensor)
                     .append("\r\n").append("cgroupResult = ").append(cgroupResult.value)
                     .append("\r\n").append("suspectCount = ").append(suspectCount);
             callback.findEmulator(stringBuffer.toString());
@@ -268,8 +268,8 @@ public class EmulatorSuperCheckUtil {
         if (!supportBluetooth) ++suspectCount;
 
         // Check light sensor presence
-        boolean hasLightSensor = hasLightSensor(context);
-        if (!hasLightSensor) ++suspectCount;
+//        boolean hasLightSensor = hasLightSensor(context);
+//        if (!hasLightSensor) ++suspectCount;
 
         // Check cgroup information
         CheckResult cgroupResult = checkFeaturesByCgroup();
@@ -358,8 +358,8 @@ public class EmulatorSuperCheckUtil {
         if (!supportBluetooth) ++suspectCount;
 
         // Check light sensor presence
-        boolean hasLightSensor = hasLightSensor(context);
-        if (!hasLightSensor) ++suspectCount;
+//        boolean hasLightSensor = hasLightSensor(context);
+//        if (!hasLightSensor) ++suspectCount;
 
         // Check cgroup information
         CheckResult cgroupResult = checkFeaturesByCgroup();
@@ -381,7 +381,7 @@ public class EmulatorSuperCheckUtil {
             emulatorInfo.put("supportCamera", supportCamera);
             emulatorInfo.put("supportCameraFlash", supportCameraFlash);
             emulatorInfo.put("supportBluetooth", supportBluetooth);
-            emulatorInfo.put("hasLightSensor", hasLightSensor);
+//            emulatorInfo.put("hasLightSensor", hasLightSensor);
             emulatorInfo.put("cgroupResult", cgroupResult.value);
             emulatorInfo.put("suspectCount", suspectCount);
 

@@ -1,4 +1,4 @@
-package com.puzzletak.puzzletakprotector;
+package com.lahm.easyprotector;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -13,6 +13,9 @@ import com.puzzletak.library.PuzzleTakProtectorLib;
 import com.puzzletak.library.EmulatorSuperCheckCallback;
 import com.puzzletak.library.SecurityCheckUtil;
 import com.puzzletak.library.VirtualApkCheckUtil;
+import com.puzzletak.puzzletakprotector.R;
+
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity
         implements View.OnClickListener {
@@ -23,17 +26,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         findViewById(R.id.checkByPrivateFilePath).setOnClickListener(this);
-        findViewById(R.id.checkByOriginApkPackageName).setOnClickListener(this);
-        findViewById(R.id.checkByMultiApkPackageName).setOnClickListener(this);
-        findViewById(R.id.checkByHasSameUid).setOnClickListener(this);
-        findViewById(R.id.checkByPortListening).setOnClickListener(this);
-        findViewById(R.id.checkByCreateLocalServerSocket).setOnClickListener(this);
-        findViewById(R.id.checkRoot).setOnClickListener(this);
-        findViewById(R.id.checkDebuggable).setOnClickListener(this);
-        findViewById(R.id.checkDebuggerAttach).setOnClickListener(this);
-        findViewById(R.id.checkTracer).setOnClickListener(this);
-        findViewById(R.id.checkXP).setOnClickListener(this);
-        findViewById(R.id.readSysProperty).setOnClickListener(this);
         findViewById(R.id.test).setOnClickListener(this);
     }
 
@@ -117,6 +109,11 @@ public class MainActivity extends AppCompatActivity
                     @Override
                     public void checkEmulator(int emulatorInfo) {
                         Log.d("PUZZLETAK", "checkEmulator: "+emulatorInfo);
+                    }
+
+                    @Override
+                    public void detailsEmulator(Map<String, Object> emulatorInfo) {
+
                     }
                 });
 //                break;

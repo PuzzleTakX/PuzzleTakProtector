@@ -4,8 +4,8 @@ plugins {
 }
 android {
     namespace "com.puzzletak.puzzletakprotector"
-    compileSdk 34
-    buildToolsVersion = '34.0.0'
+    compileSdk 35
+    buildToolsVersion = '35.0.0'
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -14,9 +14,9 @@ android {
     defaultConfig {
         applicationId "com.puzzletak.puzzletakprotector"
         minSdkVersion 24
-        targetSdk 34
-        versionCode 1
-        versionName "1.0"
+        targetSdk 35
+        versionCode 10
+        versionName "1.0.2"
     }
     buildTypes {
         release {
