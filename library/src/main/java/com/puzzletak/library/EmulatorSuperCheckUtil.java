@@ -146,8 +146,8 @@ public class EmulatorSuperCheckUtil {
         if (userAppNumber <= 5) ++suspectCount;
 
         // Check if camera flash is supported
-        boolean supportCameraFlash = supportCameraFlash(context);
-        if (!supportCameraFlash) ++suspectCount;
+//        boolean supportCameraFlash = supportCameraFlash(context);
+//        if (!supportCameraFlash) ++suspectCount;
 
         // Check if camera is supported
         boolean supportCamera = supportCamera(context);
@@ -179,7 +179,7 @@ public class EmulatorSuperCheckUtil {
                     .append("\r\n").append("sensorNumber = ").append(sensorNumber)
                     .append("\r\n").append("userAppNumber = ").append(userAppNumber)
                     .append("\r\n").append("supportCamera = ").append(supportCamera)
-                    .append("\r\n").append("supportCameraFlash = ").append(supportCameraFlash)
+//                    .append("\r\n").append("supportCameraFlash = ").append(supportCameraFlash)
                     .append("\r\n").append("supportBluetooth = ").append(supportBluetooth)
 //                    .append("\r\n").append("hasLightSensor = ").append(hasLightSensor)
                     .append("\r\n").append("cgroupResult = ").append(cgroupResult.value)
@@ -256,8 +256,8 @@ public class EmulatorSuperCheckUtil {
         if (userAppNumber <= 5) ++suspectCount;
 
         // Check if camera flash is supported
-        boolean supportCameraFlash = supportCameraFlash(context);
-        if (!supportCameraFlash) ++suspectCount;
+//        boolean supportCameraFlash = supportCameraFlash(context);
+//        if (!supportCameraFlash) ++suspectCount;
 
         // Check if camera is supported
         boolean supportCamera = supportCamera(context);
@@ -346,8 +346,8 @@ public class EmulatorSuperCheckUtil {
         if (userAppNumber <= 5) ++suspectCount;
 
         // Check if camera flash is supported
-        boolean supportCameraFlash = supportCameraFlash(context);
-        if (!supportCameraFlash) ++suspectCount;
+//        boolean supportCameraFlash = supportCameraFlash(context);
+//        if (!supportCameraFlash) ++suspectCount;
 
         // Check if camera is supported
         boolean supportCamera = supportCamera(context);
@@ -379,7 +379,7 @@ public class EmulatorSuperCheckUtil {
             emulatorInfo.put("sensorNumber", sensorNumber);
             emulatorInfo.put("userAppNumber", userAppNumber);
             emulatorInfo.put("supportCamera", supportCamera);
-            emulatorInfo.put("supportCameraFlash", supportCameraFlash);
+//            emulatorInfo.put("supportCameraFlash", supportCameraFlash);
             emulatorInfo.put("supportBluetooth", supportBluetooth);
 //            emulatorInfo.put("hasLightSensor", hasLightSensor);
             emulatorInfo.put("cgroupResult", cgroupResult.value);
