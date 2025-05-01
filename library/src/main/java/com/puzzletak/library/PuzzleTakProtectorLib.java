@@ -2,9 +2,11 @@ package com.puzzletak.library;
 
 import android.content.Context;
 import android.telephony.TelephonyManager;
+import android.util.Pair;
 
 import java.io.File;
 import java.net.UnknownHostException;
+import java.util.List;
 
 /**
  * Project Name:PuzzleTakProtector
@@ -88,6 +90,9 @@ public class PuzzleTakProtectorLib {
     }
     public static int checkIsRunningInEmulatorPT(Context context, EmulatorSuperCheckCallback callback) {
         return EmulatorSuperCheckUtil.getSingleInstance().readSysPropertyPT(context, callback);
+    }
+    public static void readSysPropertyPTDetailed(Context context, EmulatorDetailsCallback callback) {
+        EmulatorSuperCheckUtil.getSingleInstance().readSysPropertyPTDetailed(context, callback);
     }
     public static boolean checkIsRunningInEmulatorPTResult(Context context, EmulatorSuperCheckCallback callback) {
         return EmulatorSuperCheckUtil.getSingleInstance().readSysPropertyPTResult(context, callback);

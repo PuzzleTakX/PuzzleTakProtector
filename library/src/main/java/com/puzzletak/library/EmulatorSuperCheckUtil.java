@@ -6,13 +6,16 @@ import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Build;
 import android.text.TextUtils;
+import android.util.Pair;
 
 import static android.content.Context.SENSOR_SERVICE;
 import static com.puzzletak.library.CheckResult.RESULT_EMULATOR;
 import static com.puzzletak.library.CheckResult.RESULT_MAYBE_EMULATOR;
 import static com.puzzletak.library.CheckResult.RESULT_UNKNOWN;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -179,9 +182,9 @@ public class EmulatorSuperCheckUtil {
                     .append("\r\n").append("sensorNumber = ").append(sensorNumber)
                     .append("\r\n").append("userAppNumber = ").append(userAppNumber)
                     .append("\r\n").append("supportCamera = ").append(supportCamera)
-//                    .append("\r\n").append("supportCameraFlash = ").append(supportCameraFlash)
+                    .append("\r\n").append("supportCameraFlash = ").append(1)
                     .append("\r\n").append("supportBluetooth = ").append(supportBluetooth)
-//                    .append("\r\n").append("hasLightSensor = ").append(hasLightSensor)
+                    .append("\r\n").append("hasLightSensor = ").append(1)
                     .append("\r\n").append("cgroupResult = ").append(cgroupResult.value)
                     .append("\r\n").append("suspectCount = ").append(suspectCount);
             callback.findEmulator(stringBuffer.toString());
@@ -190,6 +193,75 @@ public class EmulatorSuperCheckUtil {
 
         // If suspicion count is greater than 3, consider it an emulator
         return suspectCount > 3;
+    }
+
+
+    public void readSysPropertyPTDetailed(Context context, EmulatorDetailsCallback callback) {
+        if (context == null)
+            throw new IllegalArgumentException("context must not be null");
+
+        List<Map<String, Object>> results = new ArrayList<>();
+
+        CheckResult hardwareResult = checkFeaturesByHardware();
+        boolean hardwareSuspicious = hardwareResult.result == 0;
+        results.add(new CheckItemResult("Hardware", hardwareSuspicious,checkFeaturesByHardwarePT()).toMap());
+
+        CheckResult hostResult = checkFeaturesByHost();
+        boolean hostSuspicious = hostResult.result == 0;
+        results.add(new CheckItemResult("Host", hostSuspicious,checkFeaturesByHostST()).toMap());
+
+        CheckResult flavorResult = checkFeaturesByFlavor();
+        boolean flavorSuspicious = flavorResult.result == 0;
+        results.add(new CheckItemResult("Flavor", flavorSuspicious,checkFeaturesByFlavorST()).toMap());
+
+        CheckResult modelResult = checkFeaturesByModel();
+        boolean modelSuspicious = modelResult.result == 0;
+        results.add(new CheckItemResult("Model", modelSuspicious,checkFeaturesByModelST()).toMap());
+
+        CheckResult manufacturerResult = checkFeaturesByManufacturer();
+        boolean manufacturerSuspicious = manufacturerResult.result == 0;
+        results.add(new CheckItemResult("Manufacturer", manufacturerSuspicious,checkFeaturesByManufacturerST()).toMap());
+
+        CheckResult boardResult = checkFeaturesByBoard();
+        boolean boardSuspicious = boardResult.result == 0;
+        results.add(new CheckItemResult("Board", boardSuspicious,checkFeaturesByBoardST()).toMap());
+
+        CheckResult platformResult = checkFeaturesByPlatform();
+        boolean platformSuspicious = platformResult.result == 0;
+        results.add(new CheckItemResult("Platform", platformSuspicious,checkFeaturesByPlatformST()).toMap());
+
+        CheckResult baseBandResult = checkFeaturesByBaseBand();
+        boolean basebandSuspicious = baseBandResult.result == 0;
+        results.add(new CheckItemResult("BaseBand", basebandSuspicious,checkFeaturesByBaseBandST()).toMap());
+
+        int sensorNumber = getSensorNumber(context);
+        boolean sensorSuspicious = sensorNumber <= 7;
+        results.add(new CheckItemResult("Sensors ≤ 7", sensorSuspicious,sensorNumber+"").toMap());
+
+        int userAppNumber = getUserAppNumber();
+        boolean userAppsSuspicious = userAppNumber <= 5;
+        results.add(new CheckItemResult("UserApps ≤ 5", userAppsSuspicious,userAppNumber+"").toMap());
+
+        boolean supportCameraFlash = supportCameraFlash(context);
+        boolean flashSuspicious = !supportCameraFlash;
+        results.add(new CheckItemResult("No Camera Flash", flashSuspicious,supportCameraFlashST(context)+"").toMap());
+
+        boolean supportCamera = supportCamera(context);
+        boolean cameraSuspicious = !supportCamera;
+        results.add(new CheckItemResult("No Camera", cameraSuspicious,supportCameraST(context)+"").toMap());
+
+        boolean supportBluetooth = supportBluetooth(context);
+        boolean bluetoothSuspicious = !supportBluetooth;
+        results.add(new CheckItemResult("No Bluetooth", bluetoothSuspicious,supportBluetoothST(context)+"").toMap());
+
+        CheckResult cgroupResult = checkFeaturesByCgroup();
+        boolean cgroupSuspicious = cgroupResult.result == 0;
+        results.add(new CheckItemResult("CGroup", cgroupSuspicious,checkFeaturesByCgroupST()).toMap());
+
+        if (callback != null) {
+            callback.detailsEmulator(results);
+        }
+
     }
 
 
@@ -434,6 +506,9 @@ public class EmulatorSuperCheckUtil {
 
         return new CheckResult(result, tempValue);
     }
+    private String checkFeaturesByHostST() {
+        return getProperty("ro.build.host");
+    }
 
     private CheckResult checkFeaturesByHardware() {
         String hardware = getProperty("ro.hardware");
@@ -460,6 +535,10 @@ public class EmulatorSuperCheckUtil {
         return new CheckResult(result, hardware);
     }
 
+    private String checkFeaturesByHardwarePT() {
+        return getProperty("ro.hardware");
+    }
+
     /**
      * Feature parameter - channel
      *
@@ -477,6 +556,9 @@ public class EmulatorSuperCheckUtil {
         else result = RESULT_UNKNOWN;
 
         return new CheckResult(result, flavor);
+    }
+    private String checkFeaturesByFlavorST() {
+        return getProperty("ro.build.flavor");
     }
 
     /**
@@ -498,6 +580,9 @@ public class EmulatorSuperCheckUtil {
 
         return new CheckResult(result, model);
     }
+    private String checkFeaturesByModelST() {
+        return getProperty("ro.product.model");
+    }
 
     /**
      * Feature parameter - manufacturer
@@ -516,6 +601,9 @@ public class EmulatorSuperCheckUtil {
         else result = RESULT_UNKNOWN;
 
         return new CheckResult(result, manufacturer);
+    }
+    private String checkFeaturesByManufacturerST() {
+        return getProperty("ro.product.manufacturer");
     }
 
     /**
@@ -536,6 +624,9 @@ public class EmulatorSuperCheckUtil {
 
         return new CheckResult(result, board);
     }
+    private String checkFeaturesByBoardST() {
+        return getProperty("ro.product.board");
+    }
 
     /**
      * Feature parameter - platform
@@ -554,6 +645,9 @@ public class EmulatorSuperCheckUtil {
 
         return new CheckResult(result, platform);
     }
+    private String checkFeaturesByPlatformST() {
+        return getProperty("ro.board.platform");
+    }
 
     /**
      * Feature parameter - baseband information
@@ -570,11 +664,18 @@ public class EmulatorSuperCheckUtil {
 
         return new CheckResult(result, baseBandVersion);
     }
+    private String checkFeaturesByBaseBandST() {
+        return getProperty("gsm.version.baseband");
+    }
 
     /**
      * Get the number of sensors
      */
     private int getSensorNumber(Context context) {
+        SensorManager sm = (SensorManager) context.getSystemService(SENSOR_SERVICE);
+        return sm.getSensorList(Sensor.TYPE_ALL).size();
+    }
+    private int getSensorNumberST(Context context) {
         SensorManager sm = (SensorManager) context.getSystemService(SENSOR_SERVICE);
         return sm.getSensorList(Sensor.TYPE_ALL).size();
     }
@@ -591,10 +692,10 @@ public class EmulatorSuperCheckUtil {
      * Whether the camera is supported
      */
     private boolean supportCamera(Context context) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             return context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY);
-        }
-        return false;
+    }
+    private boolean supportCameraST(Context context) {
+        return context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY);
     }
 
     /**
@@ -603,11 +704,17 @@ public class EmulatorSuperCheckUtil {
     private boolean supportCameraFlash(Context context) {
         return context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
     }
+    private boolean supportCameraFlashST(Context context) {
+        return context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
+    }
 
     /**
      * Whether Bluetooth is supported
      */
     private boolean supportBluetooth(Context context) {
+        return context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH);
+    }
+    private boolean supportBluetoothST(Context context) {
         return context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH);
     }
 
@@ -623,6 +730,12 @@ public class EmulatorSuperCheckUtil {
         if (null == sensor) return false;
         else return true;
     }
+    private boolean hasLightSensorST(Context context) {
+        SensorManager sensorManager = (SensorManager) context.getSystemService(SENSOR_SERVICE);
+        Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT); // Light sensor
+        if (null == sensor) return false;
+        else return true;
+    }
 
     /**
      * Feature parameter - cgroup information
@@ -631,6 +744,9 @@ public class EmulatorSuperCheckUtil {
         String filter = CommandUtil.getSingleInstance().exec("cat /proc/self/cgroup");
         if (null == filter) return new CheckResult(RESULT_MAYBE_EMULATOR, null);
         return new CheckResult(RESULT_UNKNOWN, filter);
+    }
+    private String checkFeaturesByCgroupST() {
+        return CommandUtil.getSingleInstance().exec("cat /proc/self/cgroup");
     }
 }
 
