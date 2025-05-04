@@ -9,7 +9,7 @@ buildscript {
         mavenCentral()  // Use Maven Central repository
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.1.4'  // Use the required Android Gradle plugin version
+        classpath 'com.android.tools.build:gradle:8.2.2'  // Use the required Android Gradle plugin version
     }
 }
 
