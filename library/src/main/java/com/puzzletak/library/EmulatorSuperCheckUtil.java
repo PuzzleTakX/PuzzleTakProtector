@@ -133,7 +133,7 @@ public class EmulatorSuperCheckUtil {
         CheckResult baseBandResult = checkFeaturesByBaseBand();
         switch (baseBandResult.result) {
             case RESULT_MAYBE_EMULATOR:
-                suspectCount += 2; // Baseband info being null strongly indicates an emulator.
+                suspectCount += 4; // Baseband info being null strongly indicates an emulator.
                 break;
             case RESULT_EMULATOR:
                 if (callback != null) callback.findEmulator("baseBand = " + baseBandResult.value);
@@ -142,11 +142,11 @@ public class EmulatorSuperCheckUtil {
 
         // Check sensor count
         int sensorNumber = getSensorNumber(context);
-        if (sensorNumber <= 7) ++suspectCount;
+        if (sensorNumber <= 6) ++suspectCount;
 
         // Check number of installed third-party apps
         int userAppNumber = getUserAppNumber();
-        if (userAppNumber <= 5) ++suspectCount;
+        if (sensorNumber <= 2) ++suspectCount;
 
         // Check if camera flash is supported
 //        boolean supportCameraFlash = supportCameraFlash(context);
@@ -316,16 +316,16 @@ public class EmulatorSuperCheckUtil {
         // Check baseband information
         CheckResult baseBandResult = checkFeaturesByBaseBand();
         if (baseBandResult.result == RESULT_MAYBE_EMULATOR) {
-            suspectCount += 2; // Baseband info being null strongly indicates an emulator.
+            suspectCount += 4; // Baseband info being null strongly indicates an emulator.
         }
 
         // Check sensor count
         int sensorNumber = getSensorNumber(context);
-        if (sensorNumber <= 7) ++suspectCount;
+        if (sensorNumber <= 6) ++suspectCount;
 
         // Check number of installed third-party apps
         int userAppNumber = getUserAppNumber();
-        if (userAppNumber <= 5) ++suspectCount;
+        if (sensorNumber <= 2) ++suspectCount;
 
         // Check if camera flash is supported
 //        boolean supportCameraFlash = supportCameraFlash(context);
@@ -406,16 +406,16 @@ public class EmulatorSuperCheckUtil {
         // Check baseband information
         CheckResult baseBandResult = checkFeaturesByBaseBand();
         if (baseBandResult.result == RESULT_MAYBE_EMULATOR) {
-            suspectCount += 2; // Baseband info being null strongly indicates an emulator.
+            suspectCount += 4; // Baseband info being null strongly indicates an emulator.
         }
 
         // Check sensor count
         int sensorNumber = getSensorNumber(context);
-        if (sensorNumber <= 7) ++suspectCount;
+        if (sensorNumber <= 6) ++suspectCount;
 
         // Check number of installed third-party apps
         int userAppNumber = getUserAppNumber();
-        if (userAppNumber <= 5) ++suspectCount;
+        if (sensorNumber <= 2) ++suspectCount;
 
         // Check if camera flash is supported
 //        boolean supportCameraFlash = supportCameraFlash(context);
