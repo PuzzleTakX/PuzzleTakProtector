@@ -142,11 +142,11 @@ public class EmulatorSuperCheckUtil {
 
         // Check sensor count
         int sensorNumber = getSensorNumber(context);
-        if (sensorNumber <= 6) ++suspectCount;
+        if (sensorNumber <= 3) ++suspectCount;
 
         // Check number of installed third-party apps
         int userAppNumber = getUserAppNumber();
-        if (sensorNumber <= 2) ++suspectCount;
+        if (userAppNumber <= 1) ++suspectCount;
 
         // Check if camera flash is supported
 //        boolean supportCameraFlash = supportCameraFlash(context);
@@ -235,12 +235,12 @@ public class EmulatorSuperCheckUtil {
         results.add(new CheckItemResult("BaseBand", basebandSuspicious,checkFeaturesByBaseBandST()).toMap());
 
         int sensorNumber = getSensorNumber(context);
-        boolean sensorSuspicious = sensorNumber <= 7;
-        results.add(new CheckItemResult("Sensors ≤ 7", sensorSuspicious,sensorNumber+"").toMap());
+        boolean sensorSuspicious = sensorNumber <= 3;
+        results.add(new CheckItemResult("Sensors ≤ 3", sensorSuspicious,sensorNumber+"").toMap());
 
         int userAppNumber = getUserAppNumber();
-        boolean userAppsSuspicious = userAppNumber <= 5;
-        results.add(new CheckItemResult("UserApps ≤ 5", userAppsSuspicious,userAppNumber+"").toMap());
+        boolean userAppsSuspicious = userAppNumber <= 2;
+        results.add(new CheckItemResult("UserApps ≤ 1", userAppsSuspicious,userAppNumber+"").toMap());
 
         boolean supportCameraFlash = supportCameraFlash(context);
         boolean flashSuspicious = !supportCameraFlash;
@@ -321,11 +321,11 @@ public class EmulatorSuperCheckUtil {
 
         // Check sensor count
         int sensorNumber = getSensorNumber(context);
-        if (sensorNumber <= 6) ++suspectCount;
+        if (sensorNumber <= 3) ++suspectCount;
 
         // Check number of installed third-party apps
         int userAppNumber = getUserAppNumber();
-        if (sensorNumber <= 2) ++suspectCount;
+        if (sensorNumber <= 1) ++suspectCount;
 
         // Check if camera flash is supported
 //        boolean supportCameraFlash = supportCameraFlash(context);
@@ -411,11 +411,11 @@ public class EmulatorSuperCheckUtil {
 
         // Check sensor count
         int sensorNumber = getSensorNumber(context);
-        if (sensorNumber <= 6) ++suspectCount;
+        if (sensorNumber <= 3) ++suspectCount;
 
         // Check number of installed third-party apps
         int userAppNumber = getUserAppNumber();
-        if (sensorNumber <= 2) ++suspectCount;
+        if (sensorNumber <= 1) ++suspectCount;
 
         // Check if camera flash is supported
 //        boolean supportCameraFlash = supportCameraFlash(context);
